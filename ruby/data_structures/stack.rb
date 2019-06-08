@@ -40,5 +40,4 @@ class Stack
     @head -= 1
     @contents[@head + 1]
   end
-
 end

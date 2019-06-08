@@ -2,7 +2,7 @@
 require_relative "../../data_structures/stack"
 require "test/unit"
 
-class TestSimpleNumber < Test::Unit::TestCase
+class TestStack < Test::Unit::TestCase
   def setup
     @stack = Stack.new
   end
@@ -30,6 +30,13 @@ class TestSimpleNumber < Test::Unit::TestCase
     assert_raise(ArgumentError) { @stack.pop }
   end
 
+  def test_pop_multi
+    @stack.push(1)
+    @stack.push(2)
+    @stack.push(3)
+    assert_equal(3, @stack.pop)
+  end
+
   # empty?
   def test_empty_false
     @stack.push(4)
@@ -37,6 +44,14 @@ class TestSimpleNumber < Test::Unit::TestCase
   end
 
   def test_empty_true
+    assert(@stack.empty?)
+  end
+
+  def test_empty_popped
+    @stack.push(1)
+    @stack.push(2)
+    @stack.pop
+    @stack.pop
     assert(@stack.empty?)
   end
 
