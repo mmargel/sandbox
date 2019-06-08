@@ -15,7 +15,7 @@ class LinkedList
       @head = new_node
       @tail = new_node
     else
-      @head.next_node = new_node
+      @head.next = new_node
       @head = new_node
     end
 
@@ -29,7 +29,7 @@ class LinkedList
     if @tail.nil?
       @head = new_node
     else
-      new_node.next_node = @tail
+      new_node.next = @tail
     end
 
     @tail = new_node
@@ -46,9 +46,9 @@ class LinkedList
       @tail = nil
     else
       new_head = @tail
-      new_head = new_head.next_node while new_head.next_node != item
+      new_head = new_head.next while new_head.next != item
       @head = new_head
-      @head.next_node = nil
+      @head.next = nil
     end
     item.value
   end
@@ -61,7 +61,7 @@ class LinkedList
       @head = nil
       @tail = nil
     else
-      @tail = @tail.next_node
+      @tail = @tail.next
     end
 
     item.value
@@ -83,12 +83,32 @@ class LinkedList
     @head == @tail && @head.nil?
   end
 
+  def find(value)
+    target = @tail
+    target = target.next while !target.nil? && target.value != value
+    target
+  end
+
+  def delete(value)
+    if @tail.value == value
+      match = @tail
+      @tail = @tail.next
+    else
+      pre_target = @tail
+      pre_target = pre_target.next while !pre_target.nil? && !pre_target.next.nil? && pre_target.next.value != value
+      match = pre_target.next
+      return nil if match.nil?
+      pre_target.next = pre_target.next.next
+    end
+    match
+  end
+
   class Node
-    attr_accessor :next_node, :value
+    attr_accessor :next, :value
 
     def initialize(value)
       @value = value
-      @next_node = nil
+      @next = nil
     end
   end
 end

@@ -14,8 +14,8 @@ class DoublyLinkedList
     if empty?
       @tail = new_node
     else
-      new_node.prev_node = @head
-      @head.next_node = new_node
+      new_node.prev = @head
+      @head.next = new_node
     end
     @head = new_node
 
@@ -29,8 +29,8 @@ class DoublyLinkedList
     if empty?
       @head = new_node
     else
-      new_node.next_node = @tail
-      @tail.prev_node = new_node
+      new_node.next = @tail
+      @tail.prev = new_node
     end
     @tail = new_node
 
@@ -46,8 +46,8 @@ class DoublyLinkedList
       @head = nil
       @tail = nil
     else
-      @head = @head.prev_node
-      @head.next_node = nil
+      @head = @head.prev
+      @head.next = nil
     end
     item.value
   end
@@ -60,8 +60,8 @@ class DoublyLinkedList
       @head = nil
       @tail = nil
     else
-      @tail = @tail.next_node
-      @tail.prev_node = nil
+      @tail = @tail.next
+      @tail.prev = nil
     end
 
     item.value
@@ -83,13 +83,46 @@ class DoublyLinkedList
     @head == @tail && @head.nil?
   end
 
+  def find(value)
+    return nil if empty?
+    if @tail.value == value
+      @tail
+    else
+      target = @tail
+      target = target.next while !target.nil? && target.value != value
+      target
+    end
+  end
+
+  def delete(value)
+    return nil if empty?
+    if @head.value == value
+      match = @head
+      @head = @head.prev
+      @head.next = nil
+      match
+    elsif @tail.value == value
+      match = @tail
+      @tail = @tail.next
+      @tail.prev = nil
+      match
+    else
+      target = find(value)
+      return nil unless target
+
+      target.prev.next = target.next
+      target.next.prev = target.prev
+      target
+    end
+  end
+
   class Node
-    attr_accessor :prev_node, :next_node, :value
+    attr_accessor :prev, :next, :value
 
     def initialize(value)
       @value = value
-      @next_node = nil
-      @prev_node = nil
+      @next = nil
+      @prev = nil
     end
   end
 end

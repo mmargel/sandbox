@@ -125,4 +125,45 @@ class TestLinkedList < Test::Unit::TestCase
     @list.remove_tail
     assert(@list.empty?)
   end
+
+  # find
+  def test_find_match
+    @list.insert_head(1)
+    @list.insert_head(2)
+    @list.insert_head(3)
+    assert_equal(2, @list.find(2).value)
+  end
+
+  def test_find_no_match
+    @list.insert_head(1)
+    @list.insert_head(2)
+    @list.insert_head(3)
+    assert_nil(@list.find(4))
+  end
+
+  # delete
+  def test_delete_match
+    @list.insert_head(1)
+    @list.insert_head(2)
+    @list.insert_head(3)
+    assert_not_nil(@list.find(2))
+    assert_equal(2, @list.delete(2).value)
+    assert_nil(@list.find(2))
+  end
+
+  def test_delete_head
+    @list.insert_head(1)
+    @list.insert_head(2)
+    @list.insert_head(3)
+    assert_not_nil(@list.find(3))
+    assert_equal(3, @list.delete(3).value)
+    assert_nil(@list.find(3))
+  end
+
+  def test_delete_no_match
+    @list.insert_head(1)
+    @list.insert_head(2)
+    @list.insert_head(3)
+    assert_nil(@list.delete(4))
+  end
 end
