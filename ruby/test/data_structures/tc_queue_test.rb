@@ -18,6 +18,7 @@ class TestQueue < Test::Unit::TestCase
 
   def test_enqueue_valid
     assert_equal(4, @queue.enqueue(4))
+    assert_equal(1, @queue.enqueue(1))
   end
 
   # dequeue
@@ -34,6 +35,8 @@ class TestQueue < Test::Unit::TestCase
     @queue.enqueue(1)
     @queue.enqueue(2)
     @queue.enqueue(3)
+    assert_equal(1, @queue.dequeue)
+    assert_equal(2, @queue.dequeue)
     assert_equal(3, @queue.dequeue)
   end
 
@@ -47,7 +50,7 @@ class TestQueue < Test::Unit::TestCase
     assert(@queue.empty?)
   end
 
-  def test_empty_dequeueped
+  def test_empty_dequeue
     @queue.enqueue(1)
     @queue.enqueue(2)
     @queue.dequeue

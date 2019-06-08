@@ -15,7 +15,6 @@ class Queue
   # Returns the added item
   def enqueue(item)
     raise(ArgumentError, "item cannot be nil") if item.nil?
-
     @head += 1
     @contents[@head] = item
   end
@@ -38,6 +37,6 @@ class Queue
   def dequeue
     raise(ArgumentError, "queue is empty") if empty?
     @tail += 1
-    @contents[@tail - 1]
+    @contents[@tail]
   end
 end

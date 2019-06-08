@@ -18,6 +18,7 @@ class TestStack < Test::Unit::TestCase
 
   def test_push_valid
     assert_equal(4, @stack.push(4))
+    assert_equal(1, @stack.push(1))
   end
 
   # pop
@@ -35,6 +36,8 @@ class TestStack < Test::Unit::TestCase
     @stack.push(2)
     @stack.push(3)
     assert_equal(3, @stack.pop)
+    assert_equal(2, @stack.pop)
+    assert_equal(1, @stack.pop)
   end
 
   # empty?
