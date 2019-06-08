@@ -17,20 +17,6 @@ class LinkedList
     item
   end
 
-  def remove
-    raise(ArgumentError, 'list is empty') if empty?
-
-    item = @head
-    @head = @head.next
-    item.value
-  end
-
-  def peek
-    raise(ArgumentError, 'list is empty') if empty?
-
-    @head.value
-  end
-
   def empty?
     @head.nil?
   end
@@ -41,7 +27,7 @@ class LinkedList
     target
   end
 
-  def delete(value)
+  def remove(value)
     if @head.value == value
       match = @head
       @head = @head.next

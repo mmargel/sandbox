@@ -27,89 +27,6 @@ class TestDoublyLinkedList < Test::Unit::TestCase
     assert_equal(4, @list.insert_tail(4))
   end
 
-  # remove_head
-  def test_remove_head_empty
-    assert_raise(ArgumentError) { @list.remove_head(nil) }
-  end
-
-  def test_remove_head_non_empty
-    @list.insert_head(3)
-    assert_equal(3, @list.remove_head)
-  end
-
-  def test_remove_head_multi
-    @list.insert_head(1)
-    @list.insert_head(2)
-    @list.insert_head(3)
-    assert_equal(3, @list.remove_head)
-    assert_equal(2, @list.remove_head)
-    assert_equal(1, @list.remove_head)
-  end
-
-  # remove_tail
-  def test_remove_tail_empty
-    assert_raise(ArgumentError) { @list.remove_tail(nil) }
-  end
-
-  def test_remove_tail_non_empty
-    @list.insert_tail(3)
-    assert_equal(3, @list.remove_tail)
-  end
-
-  def test_remove_tail_multi
-    @list.insert_tail(1)
-    @list.insert_tail(2)
-    @list.insert_tail(3)
-    assert_equal(3, @list.remove_tail)
-    assert_equal(2, @list.remove_tail)
-    assert_equal(1, @list.remove_tail)
-  end
-
-  # head/tail mixed operations
-  def test_add_head_remove_tail
-    @list.insert_head(1)
-    @list.insert_head(2)
-    @list.insert_head(3)
-    assert_equal(1, @list.remove_tail)
-    assert_equal(2, @list.remove_tail)
-    assert_equal(3, @list.remove_tail)
-  end
-
-  def test_add_tail_remove_head
-    @list.insert_tail(1)
-    @list.insert_tail(2)
-    @list.insert_tail(3)
-    assert_equal(1, @list.remove_head)
-    assert_equal(2, @list.remove_head)
-    assert_equal(3, @list.remove_head)
-  end
-
-  # peek_head
-  def test_peek_head_empty
-    assert_raise(ArgumentError) { @list.remove_head }
-  end
-
-  def test_peek_head_non_empty
-    @list.insert_head(1)
-    @list.insert_head(2)
-    @list.insert_head(3)
-    assert_equal(3, @list.peek_head)
-    assert_equal(3, @list.peek_head)
-  end
-
-  # peek_tail
-  def test_peek_tail_empty
-    assert_raise(ArgumentError) { @list.peek_tail }
-  end
-
-  def test_peek_tail_non_empty
-    @list.insert_tail(1)
-    @list.insert_tail(2)
-    @list.insert_tail(3)
-    assert_equal(3, @list.peek_tail)
-    assert_equal(3, @list.peek_tail)
-  end
-
   # empty
   def test_empty_true
     assert(@list.empty?)
@@ -122,7 +39,7 @@ class TestDoublyLinkedList < Test::Unit::TestCase
 
   def test_empty_dequeued
     @list.insert_head(3)
-    @list.remove_tail
+    @list.remove(3)
     assert(@list.empty?)
   end
 
@@ -141,29 +58,38 @@ class TestDoublyLinkedList < Test::Unit::TestCase
     assert_nil(@list.find(4))
   end
 
-  # delete
-  def test_delete_match
+  # remove
+  def test_remove_match
     @list.insert_head(1)
     @list.insert_head(2)
     @list.insert_head(3)
     assert_not_nil(@list.find(2))
-    assert_equal(2, @list.delete(2).value)
+    assert_equal(2, @list.remove(2))
     assert_nil(@list.find(2))
   end
 
-  def test_delete_no_match
+  def test_remove_no_match
     @list.insert_head(1)
     @list.insert_head(2)
     @list.insert_head(3)
-    assert_nil(@list.delete(4))
+    assert_nil(@list.remove(4))
   end
 
-  def test_delete_head
+  def test_remove_head
     @list.insert_head(1)
     @list.insert_head(2)
     @list.insert_head(3)
     assert_not_nil(@list.find(3))
-    assert_equal(3, @list.delete(3).value)
+    assert_equal(3, @list.remove(3))
     assert_nil(@list.find(3))
+  end
+
+  def test_remove_tail
+    @list.insert_head(1)
+    @list.insert_head(2)
+    @list.insert_head(3)
+    assert_not_nil(@list.find(1))
+    assert_equal(1, @list.remove(1))
+    assert_nil(@list.find(1))
   end
 end
