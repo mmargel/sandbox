@@ -43,13 +43,13 @@ class TestSet < Test::Unit::TestCase
   def test_get_missing
     @set.insert(2020)
     @set.insert("car")
-    assert_nil(@set.get("boat"))
+    assert_nil(@set["boat"])
   end
 
   def test_search_present
     @set.insert(2020)
     @set.insert("car")
-    assert_equal('car', @set.get("car"))
+    assert_equal('car', @set["car"])
   end
 
   # to_array

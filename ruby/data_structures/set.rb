@@ -21,11 +21,6 @@ class Set
     @buckets[key]&.remove(value)&.value
   end
 
-  def get(value)
-    key = hash(value)
-    @buckets[key]&.find(value)&.value
-  end
-
   def to_array
     @buckets
       .reject(&:nil?)
@@ -34,7 +29,16 @@ class Set
       end
   end
 
-  private :hash
+  def [](value)
+    get(value)
+  end
+
+  private
+
+  def get(value)
+    key = hash(value)
+    @buckets[key]&.find(value)&.value
+  end
 
   def hash(value)
     value.object_id % 4096
@@ -46,9 +50,11 @@ class Set
 
       array = [@head.value]
       current = @head
-      array << current.value while current = current.next
+      array << current.value while (current = current.next)
 
       array
     end
   end
+
+  private_constant :PrintableLinkedList
 end
