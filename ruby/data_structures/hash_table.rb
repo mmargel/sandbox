@@ -30,7 +30,6 @@ class HashTable
       @buckets[hashed_key] = KeyedLinkedList.new
     end
     @buckets[hashed_key].insert(key, value)
-    value
   end
 
   private

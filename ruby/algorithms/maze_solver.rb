@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MazeSolver
   # Takes a `/`-delimited string containing a maze
   # $ is the starting point
@@ -39,7 +41,7 @@ class MazeSolver
   private
 
   # Find the cost of reaching the neighbours from each tile, except the grid
-  def calculate_cost_from_goal()
+  def calculate_cost_from_goal
     @queue ||= [@goal]
     until @queue.empty?
       tile = @queue.shift
@@ -127,6 +129,7 @@ MazeSolver.new(maze_2).solve(:goal)
 puts
 MazeSolver.new(maze_3).solve(:goal)
 
+# rubocop:disable Style/BlockComments
 =begin
 $..#.
 .###.

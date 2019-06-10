@@ -64,13 +64,18 @@ class BinarySearchTree
     target = find(value)
     return nil unless target
 
-    if target.leaf?
-      transplant(target, nil)
-    elsif target.left.nil?
+    if target.left.nil?
       transplant(target, target.right)
     elsif target.right.nil?
       transplant(target, target.left)
     else
+      # The MIN will necessarily not have a left child.
+      # If it does, then it's not actually the min
+      #
+      # If the min is the immediate child of the target node, we can just
+      # transplant it. If it's not, then we need to replace that node with
+      # it's child (this effectively excises it from the tree until it gets
+      # transplanted over the target node)
       new_node = min(target.right)
       if new_node.parent != target
         transplant(new_node, new_node.right)
@@ -113,8 +118,6 @@ class BinarySearchTree
     right = node.right ? traverse_post(node.right) : []
     [*left, *right, node.value]
   end
-
-  private
 
   class Node
     attr_accessor :value, :parent, :left, :right
